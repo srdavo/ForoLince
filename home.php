@@ -9,7 +9,7 @@
     <holder>
         <?php 
             include_once "views/toolbar.php"; 
-            include_once "views/section.php"; 
+            include_once "views/sections.php"; 
         ?>
     </holder>
 </main>

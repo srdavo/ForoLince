@@ -1,20 +1,3 @@
-<section id="section-start" class="active">
-    <h1>Colores para botones</h1>
-
-    <button class="color-primary ripple_effect">Boton</button>
-    <button class="color-primaryNeutral ripple_effect">Boton</button>
-    <button class="color-primarycontainer ripple_effect">Boton</button>
-    <button class="color-outline ripple_effect">Boton</button>
-    <button class="color-normal ripple_effect">Boton</button>
-    <button class="color-normalNeutral ripple_effect">Boton</button>
-
-</section>
-
-<section id="section-test">
-    <h1>Seccion de prueba</h1>
-    <button class="color-outline ripple_effect" data-flip-id="animate" onclick="toggleWindow('#window-example_big')">Abrir ventana grande</button>
-</section>
-
 <section id="section-events">
 
     <toolbar class="invisible" style="margin-bottom:24px;">
