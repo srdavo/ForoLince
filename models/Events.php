@@ -98,17 +98,28 @@ class Events extends Connect {
       }
       $response .= $table_header;
       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $event_id = $row['id'];
         $event_name = $row['event_name'];
         $event_description = $row['event_description'];
         $event_date = $row['event_date'];
         $event_date_formated = date("d", strtotime($row["event_date"])) . ' ' . $months[date("m", strtotime($row["event_date"]))]. ' ' . date("y", strtotime($row["event_date"]));
+        $event_time = $row['event_time'];
         $event_time_formated = date("g:i A", strtotime($row["event_time"]));
         $event_address = $row['event_address'];
         $event_image = $row['event_image'];
         $event_credits = $row["event_credits"];
         
         $table_view = "
-          <tr>
+          <tr 
+            data-event-id='$event_id' 
+            data-event-img='$event_image'
+            data-event-name='$event_name'
+            data-event-description='$event_description'
+            data-event-date='$event_date'
+            data-event-time='$event_time'
+            data-event-address='$event_address'
+            data-event-credits='$event_credits'
+            >
             <td><img src='$event_image' alt='$event_name' class='table-image'></td>
             <td>$event_name</td>
             <td>$event_date_formated</td>
@@ -116,10 +127,10 @@ class Events extends Connect {
             <td>$event_address</td>
             <td>$event_credits</td>
             <td>
-              <button class='table-button small' data-flip-id='animate'>
+              <button onclick='openEditEventWindow(this)' class='table-button small' data-flip-id='animate'>
                 <span class='material-symbols-rounded'>edit</span>
               </button>
-              <button class='table-button small' data-flip-id='animate'>
+              <button data-event-id='$event_id' onclick='deleteEvent(this)' class='table-button small' data-flip-id='animate' ask-confirmation='true'>
                 <span class='material-symbols-rounded'>delete</span>
               </button>
             </td>
@@ -133,6 +144,47 @@ class Events extends Connect {
       return $response;
     } catch (PDOException $e) {
       return "Error: " . $e->getMessage();
+    }
+  }
+
+  public function editEvent($userid, $event_id, $event_name, $event_description, $event_credits, $event_date, $event_time, $event_address, $event_image){
+    $connect=parent::Conection();
+    $sql = "UPDATE events
+      SET event_name = ?, event_description = ?, event_credits = ?, event_date = ?, event_time = ?, event_address = ?, event_image = ?
+      WHERE id = ? AND user_id = ?
+    ";
+    $stmt = $connect->prepare($sql);
+    $stmt->bindParam(1, $event_name, PDO::PARAM_STR);
+    $stmt->bindParam(2, $event_description, PDO::PARAM_STR);
+    $stmt->bindParam(3, $event_credits, PDO::PARAM_INT);
+    $stmt->bindParam(4, $event_date, PDO::PARAM_STR);
+    $stmt->bindParam(5, $event_time, PDO::PARAM_STR);
+    $stmt->bindParam(6, $event_address, PDO::PARAM_STR);
+    $stmt->bindParam(7, $event_image, PDO::PARAM_STR);
+    $stmt->bindParam(8, $event_id, PDO::PARAM_INT);
+    $stmt->bindParam(9, $userid, PDO::PARAM_INT);
+
+    try {
+      $stmt->execute();
+      return true;
+    } catch (PDOException $e) {
+      echo "Error: " . $e->getMessage();
+      return false;
+    }
+  }
+
+  public function deleteEvent($event_id){
+    $connect=parent::Conection();
+    $sql = "DELETE FROM events WHERE id = ?";
+    $stmt = $connect->prepare($sql);
+    $stmt->bindParam(1, $event_id, PDO::PARAM_INT);
+
+    try {
+      $stmt->execute();
+      return true;
+    } catch (PDOException $e) {
+      echo "Error: " . $e->getMessage();
+      return false;
     }
   }
 }
