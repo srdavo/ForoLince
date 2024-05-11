@@ -1,8 +1,8 @@
 <?php
 require_once("../config/connect.php");
-require_once("../models/users.php");
+require_once("../models/News.php");
 require_once("../config/cookies.php");
-$users = new users();
+$news = new News();
 
 // Data
 $json_data = file_get_contents('php://input');

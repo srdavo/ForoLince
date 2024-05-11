@@ -26,6 +26,7 @@
     --normalInverted: 26, 26, 44;
 }
 :root[data-theme="dark"] {
+    color-scheme: light dark;
     --primary: #C2C1FF;
     --secondary: #c6c4dd;
     --tertiary: #e9b9d2;

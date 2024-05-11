@@ -25,6 +25,9 @@ class Users extends Connect {
             setcookie($cookie_pwd, "$pwd", time()+(10 * 365 * 24 * 60 * 60), "/");
             $_SESSION["id"] = $userExists["id"];
             $_SESSION["user"] = $userExists["name"];
+
+            $additional_data = $this->getAdditionalUserData();
+            $_SESSION["additional_data"] = $additional_data;
             return true;
         }
     }
@@ -128,6 +131,20 @@ class Users extends Connect {
         try {
             $stmt->execute();
             return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    private function getAdditionalUserData(){
+        $connect = parent::Conection();
+        $sql = "SELECT * FROM users_data WHERE user_id = ?";
+        $stmt = $connect->prepare($sql);
+        $stmt->bindParam(1, $_SESSION["id"]);
+        try {
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $row;
         } catch (PDOException $e) {
             return false;
         }

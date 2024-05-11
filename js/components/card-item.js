@@ -373,7 +373,11 @@ class cardItem extends HTMLElement {
     // Create sub button
     const subButton = document.createElement('button');
     subButton.textContent = 'Inscribirse';
-    subButton.onclick = function() {toggleCard(); changeWindow('#window-inscription')};
+    // subButton.onclick = function() {toggleCard(); changeWindow('#window-inscription')};
+    subButton.onclick = function() {getEventCardData(this)};
+    // subButton.setAttribute("data-event-id", this.getAttribute('data-event-id'));
+    subButton.setAttribute("data-event-name", this.getAttribute('data-title'));
+
     var buttonHolder = this.shadowRoot.getElementById("response-holder-sub-button");
     buttonHolder.appendChild(subButton);
 

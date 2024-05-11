@@ -80,7 +80,7 @@
     </toolbar>
     <section style="gap:12px">
         
-    <h1 class="ultra-large">Crea un evento</h1>
+        <h1 class="ultra-large">Crea un evento</h1>
 
         <div class="content_box small invisible">
             <div class="simple_container">
@@ -137,6 +137,80 @@
         
     </section>
     
+</window>
+
+
+<window id="window-edit_event" class="increased mini h-auto" data-flip-id="animate">
+    <toolbar>
+        <button onclick="toggleWindow()" class="action"><span class="material-symbols-rounded">close</span></button>
+    </toolbar>
+    <section style="gap:12px">
+        
+        <h1 class="ultra-large">Editar evento</h1>
+
+        <div class="content_box small invisible">
+            <div class="simple_container">
+                <span class="modern-input">
+                    <label for="edit-event_name">Nombre</label>
+                    <input type="text" id="edit-event_name" placeholder="Nombre del evento">
+                </span>
+                <span class="edit-input" style="width:100%">
+                    <textarea id="edit-event_description" cols="30" rows="14" class="modern" placeholder="Descripción del evento"></textarea>
+                </span>
+            </div>
+
+        </div>
+        <div class="content_box small invisible">
+            <div class="simple_container">
+
+            <span class="modern-input">
+                <label for="edit-event_credits">Créditos a entregar</label>
+                <input type="number" id="edit-event_credits" placeholder="Créditos del evento">
+            </span>
+            
+            <div class="content_box invisible">
+                <div class="content_box invisible small">
+                    <span class="modern-input">
+                        <label for="edit-event_date">Fecha</label>
+                        <input type="date" id="edit-event_date">
+                    </span>
+                </div>
+                <div class="content_box invisible small">
+                    <span class="modern-input">
+                        <label for="edit-event_time">Hora</label>
+                        <input type="time" id="edit-event_time">
+                    </span>
+                </div>
+            </div>
+           
+            <span class="modern-input">
+                <label for="edit-event_address">Dirección</label>
+                <input type="text" id="edit-event_address" placeholder="Lugar del evento">
+            </span>
+            <span class="modern-input">
+                <label for="edit-event_image">Imagen del evento</label>
+                <input type="text" id="edit-event_image" placeholder="URL de imagen">
+            </span>
+
+            <button id="button-edit-event" data-event-id="0" onclick="editEvent(this)" class="big-button ripple_effect color-primary" >
+                <span class="material-symbols-rounded dynamic fill">save</span>
+                Guardar cambios
+            </button>
+            </div>
+        </div>
+
+
+        
+    </section>
+</window>
+
+<window id="window-delete_event_confirmation" class="dialog" data-flip-id="animate">
+    <section>
+        <h1>Eliminar evento</h1>
+        <h2 class="info">¿Estas seguro de que quieres eliminar este evento?</h2>
+        <button class="color-background" onclick="toggleWindow()">Cancelar</button>
+        <button class="color-error ripple_effect" onclick="deleteEvent(this)" id="button-confirm-delete-event" confirm-delete>Eliminar</button>
+    </section>
 </window>
 
 <style>
