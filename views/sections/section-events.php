@@ -1,18 +1,20 @@
 <section id="section-events">
-
-    <toolbar class="invisible" style="margin-bottom:24px;">
-        <div class="toolbar_divisor">
+    
+    <div class="simple-container grow-1 justify-between b-margin">
+        <div class="content-divisor">
             <h1>Eventos</h1>
+            <h2>Visualiza los eventos que has creado</h2>
         </div>
-        <div class="toolbar_divisor">
+        <div class="content-divisor">
             <button 
                 class="color-primary ripple_effect"
                 onclick="toggleWindow('#window-create_event')"
                 data-flip-id="animate">
-                + Añadir evento
+                + Crear evento
             </button>
         </div>
-    </toolbar>
+    </div>
+
     <!-- <h1 class="ultra-large b-margin">Eventos</h1> -->
     
 

@@ -1,3 +1,4 @@
+@import url(default-rules.css?v=200);
 :root {
     --primary: #007AFF;
     --secondary: #5d5c71;
@@ -5,25 +6,23 @@
     --primaryContainer: #dce1ff;
     --tertiaryContainer: #fbd7fc;
     --surfaceError: #ffdad6;
-
+    
     --onPrimary:#ffffff;
     --onPrimaryContainer:#00164e;
     --onTertiaryContainer:#29132d;
     --onError: #93000a;
     
     --surfaceFull: #F0EDF5;
-    --surfaceMedium: rgba(228, 225, 236, 0.4);
-    --surfaceMediumSolid: #F4F1F7;
+    --surfaceMedium: #d8d9e6;
+    --surfaceMediumSolid: #ecedfa;
     --surfaceLight: #FAF6FB;
     --surfaceLightClear: rgba(228, 225, 236, 0.2);
-
+    
     --outline: #80747c;
     --success: #57a456;
-
-    /* --normal: #FFFFFF;
-    --normalInverted: 0, 0, 0; */
-    --normal: #FFFBFF;
-    --normalInverted: 26, 26, 44;
+    
+    --normal: #faf8ff;
+    --normalInverted: 25, 27, 36;
 }
 :root[data-theme="dark"] {
     color-scheme: light dark;
@@ -38,17 +37,17 @@
     --onPrimaryContainer:#e2dfff;
     --onTertiaryContainer:#fbd7fc;
     --onError: #ffb4ab;
-    
+
     --surfaceFull: #29282E;
     --surfaceMedium: rgba(71, 70, 79, .2);
-    --surfaceMediumSolid: #242429;
-    --surfaceLight: #201F24;
+    --surfaceMediumSolid: #1d1f28;
+    --surfaceLight: #191b24;
     --surfaceLightClear: rgba(71, 70, 79, 0.1);
 
     --outline: #918f9a;
     --success: #89d984;
 
-    --normal: #1c1b1f;
+    --normal: #10131c;
     --normalInverted: 226, 223, 255;
 }
 
@@ -122,7 +121,7 @@ toolbar{
     min-width:-webkit-fill-available;
     min-height: 56px;
     box-sizing: border-box;
-    padding:0 16px;
+    padding:16px;
     z-index: 1;
     background: var(--surfaceLightClear);
     margin:8px;
@@ -437,7 +436,7 @@ button.action{
     align-items: center;
 
     height: auto;
-    padding: 2px;
+    padding: 8px;
     background: transparent;
     animation: buttonAnimation 0.7s cubic-bezier(.56,.27,0,1);
 }
@@ -1304,6 +1303,16 @@ div.estimated_income  *{
     100% {
         transform: scale(1);
     }
+}
+
+.bricolage{
+    font-family: "Bricolage Grotesque", sans-serif;
+}
+.urbanist{
+    font-family: "Urbanist", sans-serif;
+}
+.onest{
+    font-family: "Onest", sans-serif;
 }
 
 /* MOBILE MODIFICATIONS */

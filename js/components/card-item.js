@@ -4,7 +4,7 @@ cardItemTemplate.innerHTML = `
     :host{
         display:flex;
         flex-grow:1;
-        flex-basis:600px;
+        flex-basis:500px;
 
         height:auto;
         user-select:none;
@@ -122,6 +122,12 @@ cardItemTemplate.innerHTML = `
         position:absolute;
         background:var(--normal);
     }
+    .card.open.slim-card{
+        inset: 10% calc(50% - 380px);;
+    }
+    .card.open.slim-card #card-item-text-content{
+        overflow:unset;
+    }
 
     event-description{
         height:100%;
@@ -131,14 +137,14 @@ cardItemTemplate.innerHTML = `
     
 
     .transparent-cards{
-        animation: transparentIn 300ms;
+        animation: transparentIn 1000ms;
     }
     @keyframes transparentIn {
         from{
             background:rgba(var(--normalInverted), 0);
         }
         to{
-            background:rgba(var(--normalInverted), 0.1);
+            background:rgba(var(--normalInverted), 0.2);
         }
     }
 
@@ -279,7 +285,7 @@ cardItemTemplate.innerHTML = `
     }
 </style>
 
-<div class="transparent-cards" style="display:none; z-index:10; width:100%; height:100vh; inset:0; position:fixed; background:rgba(var(--normalInverted), 0.1)">
+<div class="transparent-cards" style="display:none; z-index:10; width:100%; height:100vh; inset:0; position:fixed; background:rgba(var(--normalInverted), 0.2)">
 
 </div>
 
@@ -421,6 +427,13 @@ class cardItem extends HTMLElement {
 
         }else{
             // Open card
+            cardElement.classList.remove("slim-card");
+            
+            console.log(cardElement.offsetWidth)
+            var cardWidth = cardElement.offsetWidth;
+            if(cardWidth <= 799){
+                cardElement.classList.add("slim-card")
+            }
             transparentCards.style.display = "flex";
             cardElement.classList.add("open");
             transparentCards.appendChild(cardElement);

@@ -1,25 +1,28 @@
 <section id="section-start" class="active">
-
-    <div class="content_box invisible titles-box">
-        <div class="content_divisor">
-            <h1 class="super-large emphasized-light">Foro Lince</h1>
+    <div class="simple-container justify-between grow-1 gap-16 titles-box">
+        <div class="content-divisor">
+            <h1 class="super-ultra-large emphasized-light bricolage">Foro Lince</h1>
         </div>
-        <div class="content_divisor vertical_center">
-            <h2 class="large" style="width:auto;">Descubre la vaguardia académica<br>en Universidad Lince</h2>
+        <div class="content-divisor">
+            <h2 class="large bricolage" style="width:auto;">Descubre la vaguardia académica<br>en Universidad Lince</h2>
         </div>
-
         
     </div>
+ 
 
 
 
     <div class="content_box invisible img_holder" style="border-radius:40px; overflow:hidden; max-height:800px">
-        <img src="https://th.bing.com/th/id/OIG4.K10CT_jBPYAY8fAa5dkx?pid=ImgGn">
+        <!-- <img src="https://th.bing.com/th/id/OIG4.K10CT_jBPYAY8fAa5dkx?pid=ImgGn"> -->
+        <img src="resources/university_img.jpg">
+
+        <!-- https://th.bing.com/th/id/OIG1.3WDAuhAym56pCdHToxAN?w=1024&h=1024&rs=1&pid=ImgDetMain -->
+        <!-- https://get2.imglarger.com/upscaler/results/BC102Lfx_2x.jpg -->
     </div>
 
     <div class="vf_container visual_frame invisible" id="cards_holder" style="height:auto; margin:64px 0">
         <div class="visual_frame small add_padding">
-            <h1 class="large">Eventos</h1>
+            <h1 class="large ">Eventos</h1>
             <!-- <h1 class="large">Explora la agenda completa de eventos de la universidad.</h1> -->
             <img src="resources/pretty_img_1.png" class="img-card" alt="">
             <h2 class="info">Explora la agenda completa de eventos de la universidad.</h2>
@@ -53,15 +56,14 @@
 
 </section>
 
-<section id="section-events" style="position:relative; max-width:1000px;">
+<section id="section-events" style="position:relative;">
     <!-- <div class="title-img img-1">
         <h1 class="ultra-large">Eventos</h1>
     </div>     -->
 
-    <div class="content_box invisible titles-box">
-        <div class="content_divisor">
-            <h1 class="super-large emphasized-light">Eventos</h1>
-        </div>        
+    <div class="simple-container justify-between grow-1 gap-16 titles-box">
+            <h1 class="super-ultra-large emphasized-light bricolage">Eventos</h1>
+            <h2 class="large bricolage">Explora la agenda completa de eventos de la universidad.</h2>
     </div>
 
 
