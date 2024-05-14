@@ -18,6 +18,18 @@
         Eventos
     </selector>
 
+    <?php
+        if($_SESSION["additional_data"]["permissions"] == "1" || $_SESSION["additional_data"]["permissions"] == "7"){
+            echo "
+                <selector id='sel-management' onclick='toggleSection(\"#section-management\");' class='ripple_effect'>
+                    <span class='material-symbols-rounded'>manage_accounts</span>
+                    Gestión
+                </selector>
+            ";
+        }
+    ?>
+    
+
     <selector id="sel-permissions" onclick="toggleSection('#section-permissions');" class="ripple_effect">
         <span class="material-symbols-rounded">lock</span>
         Permisos

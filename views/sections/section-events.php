@@ -1,6 +1,6 @@
 <section id="section-events">
     
-    <div class="simple-container grow-1 justify-between b-margin">
+    <div class="simple-container grow-1 justify-between b-margin gap-8">
         <div class="content-divisor">
             <h1>Eventos</h1>
             <h2>Visualiza los eventos que has creado</h2>

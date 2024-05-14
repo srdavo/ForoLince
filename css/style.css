@@ -1,4 +1,3 @@
-@import url(default-rules.css?v=200);
 :root {
     --primary: #007AFF;
     --secondary: #5d5c71;
@@ -836,11 +835,26 @@ div.content_box.invisible{
 .card.short{ flex-grow: 1; flex-basis: min-content; min-width: 135px;}
 .card > * {pointer-events: none;}
 .card ripple{background: rgba(var(--normalInverted), 0.5);}
+
+.modern-card{
+    position:relative;
+    display:flex;
+    flex-grow:1;
+    background: var(--surfaceMediumSolid);
+    border-radius:24px;
+    padding:24px;
+    gap:8px;
+    user-select: none;
+}
+.modern-card > *, .card > *{
+    width: fit-content;
+}
+
 /* response holder, this one holdes all the response from server */
 .response_holder{
     width:100%; height:auto; display:flex; flex-wrap: wrap; overflow:auto; gap:8px;
 }
-.response_holder#response-events_table{overflow: visible;}
+
 div.simple_container{
     width:100%;
     display:flex;
@@ -1033,7 +1047,7 @@ dataline{
 
 /* WINDOWS - This is a main structure element*/
 transparent{
-    animation: fade-in 200ms;
+    animation: fade-in 300ms;
     display: none;
     box-sizing: border-box;
     padding: 16px;
@@ -1057,7 +1071,7 @@ transparent[closing] window{
     animation: window-out 200ms;
 }
 @keyframes window-out{to{transform:scale(0.8);}}
-@keyframes fade-in{from{opacity: 0;}to{opacity: 1;}}
+@keyframes fade-in{from{background: rgba(var(--normalInverted), 0);}to{background: rgba(var(--normalInverted), 0.3);}}
 @keyframes fade-out{from{opacity: 1;}to{opacity: 0;}}
 
 @media only screen and (min-width: 680px){
@@ -1314,10 +1328,11 @@ div.estimated_income  *{
 .onest{
     font-family: "Onest", sans-serif;
 }
-
+.response_holder#response-events_table{overflow: visible;}
 /* MOBILE MODIFICATIONS */
 @media only screen and (max-width: 680px){
-    /* MAIN STRUCTURE */ol
+    .response_holder#response-events_table{overflow: auto;}
+    /* MAIN STRUCTURE */
     toolbar:not(.invisible){display:flex;}
     html{ 
         height: 100vh; 
