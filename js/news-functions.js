@@ -1,5 +1,5 @@
-async function createNewNew(){
-    const parent = "window-create_new";
+async function createNew(){
+    const parent = "#window-create_news";
     if(!checkEmpty(parent, "input, textarea")){
         return false;
     }
@@ -7,10 +7,10 @@ async function createNewNew(){
     loadAnimation(parent, true);
 
     const data = {
-        op: "createNewNew",
-        new_title: document.getElementById("create-new_title"),
-        new_description: document.getElementById("create-new_description"),
-        new_image: document.getElementById("create-new_image"),        
+        op: "createNew",
+        new_title: document.getElementById("create-new_title").value,
+        new_content: document.getElementById("create-new_content").value,
+        new_image: document.getElementById("create-new_image").value,        
     };
     const url = "controllers/news.controller.php";
     const response = await fetch(url, {
@@ -22,15 +22,13 @@ async function createNewNew(){
         toggleButton(parent, false);
         loadAnimation(parent, false);
 
-        if (!result){
-            message ("hubo un error","error");
-            return false;
-            
-        }
+        // if (!result){
+        //     message ("hubo un error","error");
+        //     return false;
+        // }
 
         message ("noticia creada","success");
         toggleWindow();
-        getNewsT
     }
     
 }

@@ -57,17 +57,24 @@
         
         <div class="simple_container">
             <span class="modern-input">
-                <label for="create-news-title">Título Noticia</label>
-                <input type="text" placeholder="Agregar el Título" id="create-news-title">
+                <label for="create-new_title">Título</label>
+                <input type="text" placeholder="Agregar el Título a la noticia" id="create-new_title">
             </span>
 
             <span class="modern-input">
-                <label for="create-news-description">Descripción Noticia</label>
-                <textarea id="create-news-description" cols="30" rows="10" placeholder="Agregar la Descripción"></textarea>
+                <label for="create-new_content">Contenido</label>
+                <textarea id="create-new_content" cols="30" rows="10" placeholder="Agregar el Contenido de la noticia"></textarea>
+            </span>
+
+            <span class="modern-input">
+                <label for="create-new_image">Imagen</label>
+                <input type="text" placeholder="URL de imagen" id="create-new_image">
             </span>
         </div>
 
-        <button onclick="" class="color-primary ripple_effect">Guardar</button>
+        <button onclick="createNew()" class="color-primary ripple_effect">
+            Publicar noticia
+        </button>
 
     </section>
 
@@ -212,22 +219,3 @@
         <button class="color-error ripple_effect" onclick="deleteEvent(this)" id="button-confirm-delete-event" confirm-delete>Eliminar</button>
     </section>
 </window>
-
-<style>
-    textarea{
-        width: 91%;
-        padding-top: 46px;
-        background: var(--surfaceMediumSolid);
-        box-shadow: none;
-        border-radius: 16px;
-        font-size:17px;
-        line-height: 22px;
-        border: none;
-        outline: none;
-        text-align: left;
-        font-family: 'Inter', sans-serif;
-        color: rgba(var(--normalInverted), 1);
-    }
-
-    textarea::placeholder{color: rgba(var(--normalInverted), 0.2);}
-</style>

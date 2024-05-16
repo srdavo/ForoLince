@@ -677,6 +677,21 @@ textarea.modern{
     line-height: 22px;
 }
 
+textarea{
+    padding-top: 46px;
+    background: var(--surfaceMediumSolid);
+    box-shadow: none;
+    border-radius: 16px;
+    font-size:17px;
+    line-height: 22px;
+    border: none;
+    outline: none;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    color: rgba(var(--normalInverted), 1);
+}
+
+textarea::placeholder{color: rgba(var(--normalInverted), 0.2);}
 
 /* CONTAINERS content_box */
 div.content_box{
