@@ -95,7 +95,11 @@ class Users extends Connect {
     public function getUserData($userid) {
         $connect = parent::Conection();
     
-        $sql = "SELECT id, name, email FROM users WHERE id = ?";
+        $sql = "SELECT users.*, users_data.* 
+            FROM users
+            LEFT JOIN users_data ON users.id = users_data.user_id
+            WHERE users.id = ?;
+        ";
         $stmt = $connect->prepare($sql);
         $stmt->bindParam(1, $userid);
     
@@ -103,11 +107,7 @@ class Users extends Connect {
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC); // Corrected method
     
-            return array(
-                "id" => $row["id"],
-                "name" => $row["name"],
-                "email" => $row["email"]
-            );
+            return $row;
         } catch (PDOException $e) {
             return false;
         }
@@ -145,6 +145,151 @@ class Users extends Connect {
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             return $row;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getUsersData(){
+        $connect = parent::Conection();
+        $sql = "SELECT users* FROM users ";
+        $stmt = $connect->prepare($sql);
+        try {
+            $stmt->execute();
+            $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $row;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getAllUsersDataTable($original_user_permissions){
+        $connect = parent::Conection();
+        $sql = "SELECT users.*, users_data.* 
+            FROM users
+            LEFT JOIN users_data ON users.id = users_data.user_id;
+        ";
+        $stmt = $connect->prepare($sql);
+        $response = "";
+        $additional_button = ""; 
+        $table_header = "
+            <table>
+            <tr>
+                <td>Id de la cuenta</td>
+                <td>Nombre</td>
+                <td>Correo electrónico</td>
+                <td>Nivel de permisos</td>
+                <td>Créditos</td>
+                <td></td>
+            </tr>
+        ";
+        try {
+            $stmt->execute();
+            if ($stmt->rowCount() <= 0) {
+                $response = "
+                    <div class='content_box light centered'>
+                        <span class='material-symbols-rounded pretty'>search_off</span>
+                        <h1 class='info'>No hay usuarios</h1>
+                    </div>
+                ";
+                return $response;
+            }
+            $response .= $table_header;
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $user_id = $row["id"];
+                $user_name = $row["name"];
+                $user_email = $row["email"];
+                $user_permissions = $row["permissions"];
+                $user_credits = $row["credits"];
+                $user_permissions_formated = "";
+                switch ($user_permissions) {
+                    case '1':
+                        $user_permissions_formated = "<span class='data-line secondary-container on-secondary-container-text'>Profesor</span>";
+                        break;
+                    case '7':
+                        $user_permissions_formated = "<span class='data-line primary-container on-primary-container-text'>Administrador</span>";
+                        break;
+                    
+                    default:
+                        $user_permissions_formated = "<span class='data-line'>Estudiante</span>";
+                        break;
+                }
+
+                
+                if($original_user_permissions == "7"){
+                    $additional_button = "
+                        <button
+                            data-flip-id='animate'
+                            class='table-button small' 
+                            data-user-permissions='$user_permissions' 
+                            data-user-id='$user_id'
+                            onclick='toggleEditUserPermissions(this);'>
+                            <span class='material-symbols-rounded'>lock</span>
+                        </button>    
+                    ";
+                }
+
+                $response .= "
+                    <tr>
+                        <td>$user_id</td>
+                        <td>$user_name</td>
+                        <td>$user_email</td>
+                        <td>$user_permissions_formated</td>
+                        <td>$user_credits</td>
+                        <td>
+                            <button
+                                data-flip-id='animate'
+                                class='table-button small' 
+                                data-user-credits='$user_credits' 
+                                data-user-id='$user_id'
+                                onclick='toggleEditUserCredits(this); '>
+                                <span class='material-symbols-rounded'>toll</span>
+                            </button>
+                            <button
+                                data-flip-id='animate'
+                                class='table-button small' 
+                                data-user-permissions='$user_permissions' 
+                                data-user-id='$user_id'
+                                onclick='toggleEditUserPermissions(this);'>
+                                <span class='material-symbols-rounded'>lock</span>
+                            </button>   
+                        </td>
+                    </tr>
+                ";
+            }
+
+            
+            $response .= "</table>";
+            return $response;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+    public function modifyUserCredits($user_id, $credits){
+        $connect = parent::Conection();
+        $sql = "UPDATE users_data SET credits = ? WHERE user_id = ?";
+        $stmt = $connect->prepare($sql);
+        $stmt->bindParam(1, $credits);
+        $stmt->bindParam(2, $user_id);
+        try {
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+    public function modifyUserPermissions($current_account_id, $user_id, $permissions){
+        $connect = parent::Conection();
+        $sql = "UPDATE users_data SET permissions = ? WHERE user_id = ?";
+        $stmt = $connect->prepare($sql);
+        $stmt->bindParam(1, $permissions);
+        $stmt->bindParam(2, $user_id);
+        try {
+            $stmt->execute();
+            if($current_account_id == $user_id){
+                $_SESSION["additional_data"]["permissions"] = $permissions;
+            }
+            return true;
         } catch (PDOException $e) {
             return false;
         }

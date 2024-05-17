@@ -30,10 +30,6 @@
     ?>
     
 
-    <selector id="sel-permissions" onclick="toggleSection('#section-permissions');" class="ripple_effect">
-        <span class="material-symbols-rounded">lock</span>
-        Permisos
-    </selector>
     
     <selector class="sidebar-title">
         Opciones
@@ -57,16 +53,27 @@
 </sidebar>
 
 <bottombar>
+    <selector id="btmSel-home" onclick="toggleSection('#section-home')" class="active">
+        <span class="material-symbols-rounded">home</span>
+        Inicio
+    </selector>
     <selector id="btmSel-events" onclick="toggleSection('#section-events')">
         <span class="material-symbols-rounded">event</span>
         Eventos
     </selector>
-    <selector id="btmSel-start" onclick="toggleSection('#section-start')" class="active">
-        <span class="material-symbols-rounded">home</span>
-        Inicio
+    <selector id="btmSel-news" onclick="toggleSection('#section-news');">
+        <span class="material-symbols-rounded">newspaper</span>
+        Noticias
     </selector>
-    <selector id="btmSel-test" onclick="toggleSection('#section-test');">
-        <span class="material-symbols-rounded">inbox</span>
-        Prueba
-    </selector>
+    <?php
+        if($_SESSION["additional_data"]["permissions"] == "1" || $_SESSION["additional_data"]["permissions"] == "7"){
+            echo "
+                <selector id='btmSel-management' onclick='toggleSection(\"#section-management\");'>
+                    <span class='material-symbols-rounded'>manage_accounts</span>
+                    Gestión
+                </selector>
+            ";
+        }
+      
+    ?>
 </bottombar>

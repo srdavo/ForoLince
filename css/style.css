@@ -11,10 +11,10 @@
     --onTertiaryContainer:#29132d;
     --onError: #93000a;
     
-    --surfaceFull: #F0EDF5;
+    --surfaceFull: #e6e7f4;
     --surfaceMedium: #d8d9e6;
     --surfaceMediumSolid: #ecedfa;
-    --surfaceLight: #FAF6FB;
+    --surfaceLight: #f2f3ff;
     --surfaceLightClear: rgba(228, 225, 236, 0.2);
     
     --outline: #80747c;
@@ -224,7 +224,7 @@ sidebar selector{
     cursor:pointer;
     text-wrap: nowrap;
 }
-sidebar selector:hover{ background: var(--surfaceMedium)}
+sidebar selector:hover{ background: var(--surfaceMedium); color:var(--primary)}
 sidebar selector.active{
     background: var(--primary);
     color: var(--onPrimary);
@@ -493,9 +493,9 @@ a, button, selector{
 
 /* COLORS */
 .color-primary{
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.00) 100%), var(--primary);
-    box-shadow: 0px 0px 0px 0.5px rgba(0, 122, 255, 0.12), 0px 1px 2.5px 0px rgba(0, 122, 255, 0.24);
-    color:var(--onPrimary);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.17) 0%, rgba(255, 255, 255, 0.00) 100%), var(--primary) !important;
+    box-shadow: 0px 0px 0px 0.5px rgba(0, 122, 255, 0.12), 0px 1px 2.5px 0px rgba(0, 122, 255, 0.24) !important;
+    color:var(--onPrimary) !important;
 }
 .color-primaryNeutral{
     background:var(--primary);
@@ -607,7 +607,7 @@ input::-webkit-date-and-time-value{ text-align:left; }
     box-shadow:0px 0px 0px 0px;
     background: var(--surfaceMediumSolid);
 }
-input, select{-webkit-appearance: none !important;}
+/* input, select{-webkit-appearance: none !important;} */
 input::placeholder{color: rgba(var(--normalInverted), 0.2);}
 input:focus, select:focus{
     box-shadow: 0px 0px 0px 3px rgba(0, 122, 255, 0.50), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.05), 0px 0.5px 2.5px 0px rgba(0, 0, 0, 0.30);
@@ -861,15 +861,15 @@ div.content_box.invisible{
     gap:8px;
     user-select: none;
 }
-.modern-card > *, .card > *{
+/* .modern-card > *, .card > *{
     width: fit-content;
-}
+} */
 
 /* response holder, this one holdes all the response from server */
 .response_holder{
     width:100%; height:auto; display:flex; flex-wrap: wrap; overflow:auto; gap:8px;
 }
-
+md-icon {--md-icon-font: 'Material Symbols Rounded'; }
 div.simple_container{
     width:100%;
     display:flex;
@@ -1074,10 +1074,10 @@ transparent{
     width: 100%;
     height: 100%;
     z-index: 3;
-    background: rgba(var(--normalInverted), 0.3);
+    background: rgba(0,0,0, 0.3);
     min-height: -webkit-fill-available;
 }
-:root[data-theme="dark"] transparent{background: rgba(var(--normalInverted), 0.2);}
+:root[data-theme="dark"] transparent{background: rgba(0,0,0, 0.4);}
 transparent[closing]{
     pointer-events: none;
     animation: fade-out 130ms;
@@ -1187,7 +1187,18 @@ window.increased section{
         transform: scale(1);
     }
 } */
-
+window.not-animated {
+    animation: window-in 500ms cubic-bezier(0.1, 0.8, 0, 1);
+  }
+  
+  @keyframes window-in {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
 
 
 /* NEW THING TO ADD MESSAGES IN WINDOWS ELEMENTS */

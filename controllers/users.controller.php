@@ -43,18 +43,38 @@ switch ($data["op"]) {
     case 'getUserData' :
         include_once("../config/session.php");
         $user_data = $users->getUserData($userid);
-        $response = [
-            "id" => $user_data["id"],
-            "name" => $user_data["name"],
-            "email" => $user_data["email"]
-        ];
-        echo json_encode($response);
+        echo json_encode($user_data);
         break;
     case 'modifyUserData' :
         include_once("../config/session.php");
         $name = htmlspecialchars($data["name"]);
         $modify = $users->modifyUserData($name, $userid);
         if($modify){echo json_encode(true);}
+        break;
+    case "getAllUsersDataTable":
+
+        require_once("../config/session.php");
+        $user_permissions = $_SESSION["additional_data"]["permissions"];
+        $getAllUsersDataTable = $users->getAllUsersDataTable($user_permissions);
+        if(!$getAllUsersDataTable){echo json_encode($getAllUsersDataTable); exit;}
+        echo json_encode($getAllUsersDataTable);
+        break;
+    case "modifyUserCredits":
+        $user_id = $data["user_id"];
+        $credits = $data["user_credits"];
+        $modifyUserCredits = $users->modifyUserCredits($user_id, $credits);
+        if($modifyUserCredits){echo json_encode(true);}else{
+            echo json_encode(false);
+        }
+        break;
+    case "modifyUserPermissions":
+        require_once("../config/session.php");
+        $user_id = $data["user_id"];
+        $permissions = $data["user_permissions"];
+        $modifyUserPermissions = $users->modifyUserPermissions($userid, $user_id, $permissions);
+        if($modifyUserPermissions){echo json_encode(true);}else{
+            echo json_encode(false);
+        }
         break;
     default:
         # code...

@@ -49,6 +49,7 @@ async function createNewEvent() {
 async function getEventsCards() {
   const data = {
     op: "getEvents",
+    date_filter: document.getElementById("filter-events-date-filter").value,
   };
   const url = "controllers/events.controller.php";
   const response = await fetch(url, {
@@ -208,10 +209,202 @@ function deleteEvent(originButton) {
 
 
 function getEventCardData(originButton){
+  try {
+    const eventId = originButton.getAttribute("data-event-id");
+    const eventName = originButton.getAttribute("data-event-name");
+    const eventCredits = originButton.getAttribute("data-event-credits");
+    const eventDate = originButton.getAttribute("data-event-date");
+    const eventTime = originButton.getAttribute("data-event-time");
+    
+    document.getElementById("modify-inscription-event-name").textContent = eventName;
+    document.getElementById("modify-inscription-event-credits").textContent = eventCredits;
+    document.getElementById("modify-inscription-event-date").textContent = eventDate;
+    document.getElementById("modify-inscription-event-time").textContent = eventTime;
+    document.getElementById("button-register-to-event").setAttribute("data-event-id", eventId);
+  } catch (error) {
+    
+  }
 
-  // const eventId = originButton.getAttribute("data-event-id");
-  const eventName = originButton.getAttribute("data-event-name");
-  console.log(eventName);
+
+
+
+  toggleWindow("#window-inscription")
 
   // console.log(eventId);
+}
+async function registerToEvent(originButton) {
+  const data = {
+    op: "registerToEvent",
+    event_id: originButton.getAttribute("data-event-id"),
+  };
+  const url = "controllers/events.controller.php";
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const result = await response.json();
+    if (!result) {
+      message("Hubo un error", "error");
+      return false;
+    }
+    if(result == "already_registered"){
+      message("No te puedes inscribir otra vez", "error");
+      return false;
+    }
+    message("Inscripción exitosa", "success");
+    toggleWindow();
+    return true;
+  }
+  message("Hubo un error", "error");
+  return false;
+}
+async function displayRegisteredEvents(completedFilter){
+  if(completedFilter == undefined){ completedFilter = "false"; }
+  const data = {
+    op: "getRegisteredEvents",
+    completed_filter: completedFilter
+  };
+  const url = "controllers/events.controller.php";
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const result = await response.json();
+    if (!result) {
+      message("Hubo un error", "error");
+      return false;
+    }
+    if(completedFilter == "true"){
+      document.getElementById("response-user-registered-completed-events").innerHTML = result;
+      return true;
+    }
+
+    document.getElementById("response-user-registered-events").innerHTML = result;
+    return true;
+  }
+}
+async function cancelEventRegistration(originButton){
+  const eventId = originButton.getAttribute("data-event-id");
+  const data = {
+    op: "cancelEventRegistration",
+    event_id: eventId,
+  };
+  const url = "controllers/events.controller.php";
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const result = await response.json();
+    if (!result) {
+      message("Hubo un error", "error");
+      return false;
+    }
+    message("Inscripción cancelada", "success");
+    toggleWindow();
+    displayRegisteredEvents();
+    return true;
+  }
+  message("Hubo un error", "error");
+  return false;
+}
+
+function toggleCancelEventWindow(originButton){
+  const eventId = originButton.getAttribute("data-event-id");
+  document.getElementById("button-confirm-cancel-event").setAttribute("data-event-id", eventId);
+  toggleWindow("#window-cancel-event");
+}
+
+async function toggleEventRegisteredUsers(originButton){
+  await getEventRegisteredUsers(originButton)
+
+  document.getElementById("modify-event-registered-users-event-name").innerHTML = originButton.getAttribute("data-event-name");
+  document.getElementById("modify-event-registered-users-event-credits").innerHTML = originButton.getAttribute("data-event-credits") + " créditos";
+  document.getElementById("button-confirm-event-attendance").setAttribute("data-event-id", originButton.getAttribute("data-event-id"));
+  toggleWindow("#window-event-registered-users");
+}
+
+async function getEventRegisteredUsers(originButton){
+  const eventId = originButton.getAttribute("data-event-id");
+  const data = {
+    op: "getEventRegisteredUsers",
+    event_id: eventId,
+  };
+  const url = "controllers/events.controller.php";
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const result = await response.json();
+    if (!result) {
+      message("Hubo un error", "error");
+      return false;
+    }
+    document.getElementById("response-event-registered-users").innerHTML = result;
+    return true;
+  }
+}
+async function setUserEventAbsences(originButton){
+  const userId = originButton.getAttribute("data-user-id");
+  const eventId = originButton.getAttribute("data-event-id");
+  const data = {
+    op: "setUserEventAbsences",
+    user_id: userId,
+    event_id: eventId,
+  };
+  const url = "controllers/events.controller.php";
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+    if (response.ok) {
+      const result = await response.json();
+      if (!result) {
+        message("Hubo un error", "error");
+        originButton.setAttribute("selected", "");
+        return false;
+      }
+
+      return true;
+    }else{
+      originButton.setAttribute("selected", "");
+    }
+
+  } catch (error) {
+    originButton.setAttribute("selected", "");
+  }
+  
+  
+  message("Hubo un error", "error");
+  return false;
+
+}
+async function registerAttendance(originButton){
+  const eventId = originButton.getAttribute("data-event-id");
+  const data = {
+    op: "registerAttendance",
+    event_id: eventId,
+  };
+  const url = "controllers/events.controller.php";
+  const response = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const result = await response.json();
+    if (!result) {
+      message("Hubo un error", "error");
+      return false;
+    }
+    message("Asistencia registrada", "success");
+    getEventsTable();
+    toggleWindow();
+    return true;
+  }
+  message("Hubo un error", "error");
+  return false;
 }

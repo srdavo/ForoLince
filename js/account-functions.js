@@ -166,3 +166,41 @@ async function modifyUserData(){
     toggleWindow();
   }
 }
+
+async function saveUserName(){
+  const parent = "#parent-no-name";
+  if(!checkEmpty(parent, "INPUT")){return;}
+
+  toggleButton(parent, true);
+  loadAnimation(parent, true);
+
+  var name = document.getElementById("set-account-username");
+
+  // Fetch starts
+  const data = {
+    op: "modifyUserData",
+    name: name.value,
+  };
+  const url = 'controllers/users.controller.php';
+  const response = await fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    const result = await response.json();
+    toggleButton(parent, false);
+    loadAnimation(parent, false);
+
+    if(!result){
+      message("Hubo un error", "error");
+      return false;
+    }
+    if(result === "user_already_exists"){
+      message("Nombre de usuario ya en uso", "error");
+      name.classList.add('error');
+      return false;
+    }
+    message("Datos modificados", "success");
+    toggleWindow();
+  }
+}

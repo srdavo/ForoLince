@@ -13,12 +13,56 @@
                 Noticias
             </selector>
         </div>
-        <div class="navbar_divisor">
-            <selector id="btmSel-news" onclick="window.location.href='index'" class="ripple_effect">
-                <span class="material-symbols-rounded dynamic fill">login</span>
-                Iniciar sesión
-            </selector> 
-        </div>
+
+        <?php
+            if(isset($_SESSION["id"])){
+                $permissions_data = $_SESSION["additional_data"]["permissions"];
+                switch ($permissions_data) {
+                    case '1':
+                        echo "
+                            <div class='navbar_divisor'>
+                                <selector id='btmSel-news' onclick='window.location.href=\"index\"' class='ripple_effect'>
+                                    <span class='material-symbols-rounded dynamic fill'>login</span>
+                                    Ir a panel de profesor
+                                </selector> 
+                            </div>
+                        ";
+                        break;
+                    case '7':
+                        echo "
+                            <div class='navbar_divisor'>
+                                <selector id='btmSel-news' onclick='window.location.href=\"index\"' class='ripple_effect'>
+                                    <span class='material-symbols-rounded dynamic fill'>login</span>
+                                    Ir a panel de administrador
+                                </selector> 
+                            </div>
+                        ";
+                        break;
+                    
+                    default:
+                        echo "
+                            <div class='navbar_divisor'>
+                                <selector id='btmSel-news' onclick='window.location.href=\"index\"' class='ripple_effect'>
+                                    <span class='material-symbols-rounded dynamic fill'>login</span>
+                                    Ir a panel de estudiante
+                                </selector> 
+                            </div>
+                        ";
+                        break;
+                }
+            }else{
+                echo "
+                    <div class='navbar_divisor'>
+                        <selector id='btmSel-news' onclick='window.location.href=\"index\"' class='ripple_effect'>
+                            <span class='material-symbols-rounded dynamic fill'>login</span>
+                            Iniciar sesión
+                        </selector> 
+                    </div>
+                ";
+            }
+        
+        ?>
+       
         
         
     </bottombar>
@@ -84,6 +128,9 @@
             }
             bottombar.topbar selector:not(.active):hover{
                 background: var(--surfaceMedium);
+            }
+            bottombar.topbar .navbar_divisor:last-of-type selector:not(.active):last-of-type:hover{
+                color: var(--primary);
             }
 
             bottombar.topbar selector.active {

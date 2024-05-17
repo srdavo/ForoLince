@@ -15,7 +15,9 @@
 </main>
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
+        displayRegisteredEvents()
         // if(localStorage.getItem("currentSection")){toggleSection(localStorage.getItem("currentSection"))}
+        displayNewsTable()
         getEventsTable();
     });
 </script>

@@ -7,6 +7,7 @@
     <script src="js/account-functions.js?v=1"></script>
     <script src="js/events-functions.js?v=2"></script>
     <script src="js/news-functions.js?v=1"></script>
+    <script src="js/users-functions.js?v=1"></script>
     <script> if(localStorage.getItem("currentSection") && (window.location.pathname) === "/forolince/home"){toggleSection(localStorage.getItem("currentSection"))}</script>
 
 </body>

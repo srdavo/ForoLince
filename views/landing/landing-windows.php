@@ -1,12 +1,24 @@
-<window id="window-inscription" data-flip-id="animate" class="increased">
-    <toolbar>
-        <button onclick="toggleWindow()" class="action"><span class="material-symbols-rounded">close</span></button>
-    </toolbar>
-    <section>
-        <h1>Inscripciones</h1>
-        <p>Para inscribirte en el evento, por favor llena el siguiente formulario.</p>
-        
-    </section>
+<window id="window-inscription" data-flip-id="animate">
+    <?php
+        if (!(isset($_SESSION['id']))) {
+            echo "
+                <section style='padding:48px'>
+                    <span class='material-symbols-rounded pretty fill'>person_add</span>
+                    <h2 class='b-margin'>Para inscribirte a un evento primero accede o crea una cuenta como estudiante o profesor</h2>
+                    <button class='flex-button color-normalNeutral ripple_effect' onclick='toggleWindow()'>
+                        Cancelar
+                    </button>
+                    <button class='flex-button color-primaryNeutral ripple_effect' onclick='window.location=\"index\"'>
+                        <span class='material-symbols-rounded dynamic fill r-margin'>login</span>
+                        Iniciar sesión
+                    </button>
+                </section>
+            ";
+        }else{
+            include_once 'views/content/inscribe-event.php';
+        }
+
+    ?>
 </window>
 
 

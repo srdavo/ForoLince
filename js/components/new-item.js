@@ -1,5 +1,5 @@
-const cardItemTemplate = document.createElement('template');
-cardItemTemplate.innerHTML = `
+const newItemTemplate = document.createElement('template');
+newItemTemplate.innerHTML = `
 <style>
     :host{
         display:flex;
@@ -126,7 +126,7 @@ cardItemTemplate.innerHTML = `
         background:var(--normal);
     }
     
-    .card.open.slim-card #card-item-text-content{
+    .card.open.slim-card #new-item-text-content{
         overflow:unset;
     }
 
@@ -194,7 +194,7 @@ cardItemTemplate.innerHTML = `
     close-button svg{fill:var(--normal); filter: drop-shadow(0px 0px 4px rgba(var(--normalInverted), 0.24));transition:transform .3s cubic-bezier(0,0,0.5,1)}
     close-button:hover svg{transform: scale(1.1);}
     @media only screen and (min-width: 680px){
-        #card-item-text-content{overflow:auto;padding:24px;}
+        #new-item-text-content{overflow:auto;padding:24px;}
         close-button{right:unset; left:16px;}
     }
 
@@ -308,7 +308,7 @@ cardItemTemplate.innerHTML = `
         </close-button>
         <img src="https://th.bing.com/th/id/OIG4.XV6v0uvvkYCVu2vehKOU?w=1024&h=1024&rs=1&pid=ImgDetMain" alt="Lights" style="width:100%">
     </div>
-    <div class="content_divisor" id='card-item-text-content'>
+    <div class="content_divisor" id='new-item-text-content'>
         <div class="simple_container add-gap b-margin">
             <card-title>-</card-title>
             <div class="content-box">
@@ -318,15 +318,13 @@ cardItemTemplate.innerHTML = `
                         <dataline id="data-date">00/00/0000</dataline>
                         <dataline id="data-time">-</dataline>
                     </div>
-                </div>
-                <div class="divisor">
-                    <h1>Creditos</h1>
-                    <dataline id="data-credits" class="color-primary">0</dataline>
+                    <div class="divisor">
+                        <h1>Autor</h1>
+                        <dataline id="data-author" class="color-primary"></dataline>
+                    </div>
                 </div>
             </div>
-                <dataline id="data-address">-</dataline>
-            <card-shortdescription>
-            </card-shortdescription>
+            
             
             
         </div>
@@ -359,12 +357,12 @@ cardItemTemplate.innerHTML = `
 `;
 
 
-class cardItem extends HTMLElement {
+class newItem extends HTMLElement {
     
   constructor() {
     super();
     const shadow = this.attachShadow({mode: 'open'});
-    shadow.append(cardItemTemplate.content.cloneNode(true)); 
+    shadow.append(newItemTemplate.content.cloneNode(true)); 
   }
   
 
@@ -385,30 +383,8 @@ class cardItem extends HTMLElement {
         }
     }
     
-    // Create sub button
-    const subButton = document.createElement('button');
-    subButton.textContent = 'Inscribirse';
-    // subButton.onclick = function() {toggleCard(); changeWindow('#window-inscription')};
-    subButton.setAttribute("data-event-id", this.getAttribute('data-event-id'));
-    subButton.setAttribute("data-event-name", this.getAttribute('data-title'));
-    subButton.setAttribute("data-event-credits", this.getAttribute('data-credits'));
-    subButton.setAttribute("data-event-date", this.getAttribute('data-date'));
-    subButton.setAttribute("data-event-time", this.getAttribute('data-time'));
-    subButton.onclick = function() {toggleCard(); getEventCardData(this)};
-    // subButton.setAttribute("data-event-id", this.getAttribute('data-event-id'));
-    let buttonHolder = this.shadowRoot.getElementById("response-holder-sub-button");
-    buttonHolder.appendChild(subButton);
 
-    function displayCancelButton(eventId){
-        
-        subButton.remove();
-        const cancelButton = document.createElement('button');
-        cancelButton.classList.add("cancel-button");
-        cancelButton.textContent = 'Cancelar inscripción';
-        cancelButton.setAttribute("data-event-id", eventId);
-        cancelButton.onclick = function() {toggleCard(); toggleCancelEventWindow(cancelButton)};
-        buttonHolder.appendChild(cancelButton);
-    }
+
 
     const interactionClose = document.createElement('span');
     interactionClose.classList.add("interaction");
@@ -499,27 +475,20 @@ class cardItem extends HTMLElement {
     if(this.hasAttribute('data-description')) {
         this.shadowRoot.querySelector('card-description').textContent = this.getAttribute('data-description');
     }
-    if(this.hasAttribute('data-credits')) {
-        this.shadowRoot.getElementById("data-credits").textContent = this.getAttribute('data-credits');
-    }
+
     if(this.hasAttribute('data-date')) {
         this.shadowRoot.getElementById("data-date").textContent = this.getAttribute('data-date');
     }
     if(this.hasAttribute('data-time')) {
         this.shadowRoot.getElementById("data-time").textContent = this.getAttribute('data-time');
     }
-    if(this.hasAttribute('data-address')) {
-        this.shadowRoot.getElementById("data-address").textContent = this.getAttribute('data-address');
+    if(this.hasAttribute('data-author')) {
+        this.shadowRoot.getElementById("data-author").textContent = this.getAttribute('data-author');
     }
     if(this.hasAttribute('data-flex-basis')) {
         this.shadowRoot.host.style.flexBasis = "0px";
     }
-    if(this.hasAttribute('data-cancel-button') && this.hasAttribute('data-event-id')){
-        displayCancelButton(this.getAttribute('data-event-id'));
-    }
-    if(this.hasAttribute('data-hide-button')){
-        this.shadowRoot.querySelector("button").style.display = "none";
-    }
+
   }
 }
 
@@ -528,4 +497,4 @@ class cardItem extends HTMLElement {
 
 
 
-customElements.define('card-item', cardItem);
+customElements.define('new-item', newItem);

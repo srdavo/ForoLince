@@ -30,6 +30,18 @@ function toggleSection(sectionId){
   // specific functions per section
   switch (sectionId) {
     case "#section-start": break;
+    case "#section-events":
+      if((window.location.pathname) == "/forolince/home"){
+        displayRegisteredEvents();
+        displayRegisteredEvents("true");
+      }
+      break;
+    case "#section-admin-news":
+      displayAdminNewsTable(0, 7);
+      break;
+    case "#section-admin-users":
+      getAllUsersDataTable();
+      break;
 
     default: break;
   }
@@ -93,7 +105,11 @@ function toggleWindow(windowId, position, scale){
   // Set origin element of animation
   if (event && event.currentTarget) {
     element = event.currentTarget;
-  }else{element = null}
+    windowNew.classList.remove("not-animated");
+  }else{
+    element = null;
+    windowNew.classList.add("not-animated");
+  }
 
   // specific functions per window
   switch (windowId) {
@@ -260,17 +276,29 @@ function checkEmpty(parentId, element, type){
     return true
   }
 }
-function loadAnimation(parentId, action){
-  parent = document.querySelector(parentId);
-  circle = parent.querySelector("circle");
+function loadAnimation(parentId, action) {
+  var parent = document.querySelector(parentId);
+  var circle = parent.querySelector("circle");
+  var circleHolder = parent.querySelector("circleHolder");
+
   if (action) {
-    if(!circle){    
-    circleHolder = parent.appendChild(document.createElement("circleHolder"));
-    circle = circleHolder.appendChild(document.createElement("circle"));
-    }else{console.log("El elemento ya existe");}
-  }else{
-    $(parent).find('circle').remove();
-    $(parent).find('circleholder').remove();
+    if (!circle) {
+      if (!circleHolder) {
+        circleHolder = document.createElement("circleHolder");
+        parent.appendChild(circleHolder);
+      }
+      circle = document.createElement("circle");
+      circleHolder.appendChild(circle);
+    } else {
+      console.log("El elemento ya existe");
+    }
+  } else {
+    if (circle) {
+      circle.remove();
+    }
+    if (circleHolder) {
+      circleHolder.remove();
+    }
   }
 }
 function toggleButton(windowId, action){

@@ -1,26 +1,32 @@
-<section id="section-events">
-    
-    <div class="simple-container grow-1 justify-between b-margin gap-8">
-        <div class="content-divisor">
-            <h1>Eventos</h1>
-            <h2>Visualiza los eventos que has creado</h2>
-        </div>
-        <div class="content-divisor">
-            <button 
-                class="color-primary ripple_effect"
-                onclick="toggleWindow('#window-create_event')"
-                data-flip-id="animate">
-                + Crear evento
-            </button>
+<section id="section-events" style="position:relative;">
+    <div class="simple-container grow-1 direction-column">
+        
+        <div class="simple-container flex-wrap gap-8">
+            <div class="simple-container direction-column grow-1 gap-8 basis-large">
+            <div class="content-box user-select-none overflow-hidden">
+                    <h1 class="headline-medium">Eventos completados</h1>
+                    <h2 class="body-large">Aquí se muestran los eventos a los que estás inscrito</h2>
+                    <md-icon class="absolute-card">event</md-icon>
+                </div>
+
+                
+                <div class="simple-container gap-8 direction-column" id="response-user-registered-events"></div>
+                <div class="simple-container">
+                    <p class="info">Si no visualizas todos los eventos a los que te has inscrito, es posible que ya hayan pasado de fecha.</p>
+                </div>
+            </div>
+            <div class="simple-container direction-column grow-1 basis-large gap-8">
+                <div class="content-box user-select-none overflow-hidden">
+                    <h1 class="headline-medium">Eventos completados</h1>
+                    <h2 class="body-large">Aquí se muestran los eventos a los que has asistido</h2>
+                    <md-icon class="absolute-card">celebration</md-icon>
+                </div>
+                
+                <div class="simple-container gap-8 direction-column" id="response-user-registered-completed-events"></div>
+            </div>
         </div>
     </div>
-
-    <!-- <h1 class="ultra-large b-margin">Eventos</h1> -->
     
 
-    <div class="response_holder" id="response-events_table"></div>
-            
-    <!-- <div class="vf_container visual_frame invisible full-centered">
-        <h1 class="emphasized-light" style="color:rgba(var(--normalInverted),0.4)">Aún no has creado ningún evento</h1>
-    </div> -->
+    
 </section>
